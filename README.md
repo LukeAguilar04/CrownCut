@@ -145,3 +145,4 @@ reviews        - id, user_id, barber_id, booking_id, rating, comment
 - Mock payments only; no real payment integration
 - Default GCash balance: ₱1000 (new users)
 - Status updates visible after page refresh
+"# CrownCut" 
