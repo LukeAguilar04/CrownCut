@@ -12,7 +12,30 @@ const { authenticate, requireAdmin, JWT_SECRET } = require('./middleware/auth');
 const app = express();
 const PORT = process.env.PORT || 3001;
 
-app.use(cors({ origin: 'http://localhost:5173', credentials: true }));
+/* =====================================================
+   ⭐ UPDATED: Proper CORS for Production + Development
+===================================================== */
+
+// Allow localhost in dev, Netlify in production
+const allowedOrigins = [
+  'http://localhost:5173',
+  process.env.FRONTEND_URL
+].filter(Boolean);
+
+app.use(cors({
+  origin: function (origin, callback) {
+    // Allow requests with no origin (mobile apps, Postman, etc.)
+    if (!origin) return callback(null, true);
+
+    if (allowedOrigins.includes(origin)) {
+      return callback(null, true);
+    } else {
+      return callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true
+}));
+
 app.use(express.json());
 
 // Use db.prepare after init
