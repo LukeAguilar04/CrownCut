@@ -612,7 +612,7 @@ app.use((err, req, res, next) => {
 async function start() {
   await dbModule.initDatabase();
   app.listen(PORT, () => {
-    console.log(`🪒 CrownCut API running on http://localhost:${PORT}`);
+    console.log(`🪒 CrownCut API running on port ${PORT}`);
   });
 }
 start().catch((e) => {
